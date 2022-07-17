@@ -1,5 +1,6 @@
 package com.example.quizapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    private final String SCORE_KEY = "SCORE";
+    private final String INDEX_KEY = "INDEX";
 
     private Button btnWrong,btnTrue;
     private TextView mTxtQuestion,mQuizStatsTextView;
@@ -46,6 +50,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (savedInstanceState != null) {
+
+            mUserScore = savedInstanceState.getInt(SCORE_KEY);
+            mQuestionIndex = savedInstanceState.getInt(INDEX_KEY);
+
+        } else {
+
+            mUserScore = 0;
+            mQuestionIndex = 0;
+
+        }
+
         mTxtQuestion = findViewById(R.id.txtQuestion);
 
         QuizModel q1 = questionCollection[mQuestionIndex];
@@ -57,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
         mProgressBar = findViewById(R.id.quizPB);
         mQuizStatsTextView = findViewById(R.id.txtQuizStats);
+        mQuizStatsTextView.setText(mUserScore + "");
 
 
         btnWrong = findViewById(R.id.btnWrong);
@@ -144,4 +161,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt(SCORE_KEY, mUserScore);
+        outState.putInt(INDEX_KEY, mQuestionIndex);
+
+    }
 }
