@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     };
 
-    final int USER_PROGRESS = (int) Math.ceil(100 / questionCollection.length);
+    final int USER_PROGRESS = (int) Math.ceil(100.0 / questionCollection.length);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
