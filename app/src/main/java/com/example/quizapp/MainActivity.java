@@ -5,16 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button btnWrong,btnTrue;
-    private TextView mTxtQuestion;
+    private TextView mTxtQuestion,mQuizStatsTextView;
 
     private int mQuestionIndex;
     private int mQuizQuestion;
+
+    private ProgressBar mProgressBar;
+
+    private int mUserScore;
 
 
     private QuizModel[] questionCollection = new QuizModel[] {
@@ -32,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
     };
 
+    final int USER_PROGRESS = (int) Math.ceil(100 / questionCollection.length);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
 
         mTxtQuestion.setText(mQuizQuestion);
 
+
+        mProgressBar = findViewById(R.id.quizPB);
+        mQuizStatsTextView = findViewById(R.id.txtQuizStats);
 
 
         btnWrong = findViewById(R.id.btnWrong);
@@ -89,6 +99,10 @@ public class MainActivity extends AppCompatActivity {
 
         mTxtQuestion.setText(mQuizQuestion);
 
+        mProgressBar.incrementProgressBy(USER_PROGRESS);
+
+        mQuizStatsTextView.setText(mUserScore + "");
+
     }
 
     private void evaluateUsersAnswer(boolean userGuess) {
@@ -98,6 +112,8 @@ public class MainActivity extends AppCompatActivity {
         if (currentQuestionAnswer == userGuess) {
 
             Toast.makeText(getApplicationContext(), R.string.correct_toast_message, Toast.LENGTH_SHORT).show();
+
+            mUserScore = mUserScore + 1;
 
         } else {
 
