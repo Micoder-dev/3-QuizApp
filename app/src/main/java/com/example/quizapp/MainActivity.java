@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTxtQuestion;
 
     private int mQuestionIndex;
+    private int mQuizQuestion;
 
 
     private QuizModel[] questionCollection = new QuizModel[] {
@@ -39,7 +40,11 @@ public class MainActivity extends AppCompatActivity {
 
         QuizModel q1 = questionCollection[mQuestionIndex];
 
-        mTxtQuestion.setText(q1.getmQuestion());
+        mQuizQuestion = q1.getmQuestion();
+
+        mTxtQuestion.setText(mQuizQuestion);
+
+
 
         btnWrong = findViewById(R.id.btnWrong);
         btnTrue = findViewById(R.id.btnTrue);
@@ -48,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                changeQuestionOnButtonClick();
+
             }
         });
 
@@ -55,8 +62,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                changeQuestionOnButtonClick();
+
             }
         });
 
     }
+
+    private void changeQuestionOnButtonClick() {
+
+        mQuestionIndex++;
+
+        mQuizQuestion = questionCollection[mQuestionIndex].getmQuestion();
+
+        mTxtQuestion.setText(mQuizQuestion);
+
+    }
+
 }
