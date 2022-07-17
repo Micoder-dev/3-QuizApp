@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                evaluateUsersAnswer(true);
+
                 changeQuestionOnButtonClick();
 
             }
@@ -61,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
         btnWrong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                evaluateUsersAnswer(false);
 
                 changeQuestionOnButtonClick();
 
@@ -83,6 +88,23 @@ public class MainActivity extends AppCompatActivity {
         mQuizQuestion = questionCollection[mQuestionIndex].getmQuestion();
 
         mTxtQuestion.setText(mQuizQuestion);
+
+    }
+
+    private void evaluateUsersAnswer(boolean userGuess) {
+
+        boolean currentQuestionAnswer = questionCollection[mQuestionIndex].ismAnswer();
+
+        if (currentQuestionAnswer == userGuess) {
+
+            Toast.makeText(getApplicationContext(), R.string.correct_toast_message, Toast.LENGTH_SHORT).show();
+
+        } else {
+
+            Toast.makeText(getApplicationContext(), R.string.incorrect_toast_message, Toast.LENGTH_SHORT).show();
+
+        }
+
 
     }
 
