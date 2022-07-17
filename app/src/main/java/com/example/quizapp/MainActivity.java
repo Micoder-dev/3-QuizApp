@@ -71,7 +71,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void changeQuestionOnButtonClick() {
 
-        mQuestionIndex++;
+        // % - 20 % 15 = 5 - 30 % 25 = 5
+        // 5 % 10 = 5 - 1 % 4 = 1
+
+        // 0 = 1 % 10 = 1
+        // 1 = 2 % 10 = 2
+        // 9 = 9 + 1 = 10 - 10 % 10 = 0
+
+        mQuestionIndex = (mQuestionIndex + 1) % 10;
 
         mQuizQuestion = questionCollection[mQuestionIndex].getmQuestion();
 
